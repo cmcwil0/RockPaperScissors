@@ -39,6 +39,7 @@ function roll(computerChoice) {
             output = 'User Wins';
         }
     } else if (computerChoice === 'Scissors') {
+
         if(userDiv.textContent === 'User: Rock') {
             output = 'User Wins';
         } else if (userDiv.textContent === 'User: Paper') {
@@ -47,9 +48,11 @@ function roll(computerChoice) {
             output = 'Tie';
         }
     }
+
     const computerDiv = document.querySelector('.computerLabel');
-    computerDiv.textContent = 'Computer: ' + computerChoice; // updates text content
-    outputDiv.textContent = output;
+    computerDiv.textContent = 'Computer: ' + computerChoice; // updates computer result text
+    userDiv.textContent = 'User:';
+    outputDiv.textContent = output; // updates output text
 }
 
 
