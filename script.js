@@ -11,9 +11,45 @@ function getComputerChoice() {
 }
 
 
-function updateComputer(choice) {
+function roll(computerChoice) {
+
+    const userDiv = document.querySelector('.userLabel');
+    const outputDiv = document.querySelector('.outputLabel');
+    let output = ''; 
+
+    if(userDiv.textContent === "User:") {
+        outputDiv.textContent = '!Enter Value!';
+        return; //kills function if user has not entered value
+    } else if (computerChoice === 'Rock') {
+
+        if(userDiv.textContent === 'User: Rock') {
+             output = 'Tie';
+        } else if (userDiv.textContent === 'User: Paper') {
+            output = 'User Wins';
+        } else if (userDiv.textContent === 'User: Scissors') {
+            output = 'Computer Wins';
+        }
+    } else if(computerChoice === 'Paper') {
+
+        if(userDiv.textContent === 'User: Rock') {
+            output = 'Computer Wins';
+        } else if (userDiv.textContent === 'User: Paper') {
+            output = 'Tie';
+        } else if (userDiv.textContent === 'User: Scissors') {
+            output = 'User Wins';
+        }
+    } else if (computerChoice === 'Scissors') {
+        if(userDiv.textContent === 'User: Rock') {
+            output = 'User Wins';
+        } else if (userDiv.textContent === 'User: Paper') {
+            output = 'Computer Wins';
+        } else if (userDiv.textContent === 'User: Scissors') {
+            output = 'Tie';
+        }
+    }
     const computerDiv = document.querySelector('.computerLabel');
-    computerDiv.textContent = 'Computer: ' + choice; // updates text content
+    computerDiv.textContent = 'Computer: ' + computerChoice; // updates text content
+    outputDiv.textContent = output;
 }
 
 
@@ -35,7 +71,7 @@ scissorsButton.addEventListener('click', () => updateUser('Scissors'));
 
 
 const rollButton = document.querySelector('.rollButton'); 
-rollButton.addEventListener('click', () => updateComputer(getComputerChoice())); //updates computer label on click (roll)
+rollButton.addEventListener('click', () => roll(getComputerChoice())); //updates computer label on click (roll)
 
 
 
