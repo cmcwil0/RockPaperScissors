@@ -7,59 +7,50 @@ function getComputerChoice() {
         return 'Scissors';
     } else if (choice === 2) {
         return 'Paper';
-    } 
+    }
 }
 
+function checkUserChoice() {
+
+}
+
+const image = document.querySelector('.diceImg');
+
+function spinAnimation() {
+    let isSpinning = false;
+    let intervalId = null;
+    const images = ['images/rock.svg', 'images/paper.svg', 'images/scissors.svg'];
+
+    if(isSpinning) return; //prevents user from clicking again
+
+    isSpinning = true;
+    let counter = 0;
+    let imageIndex = 0;
+
+    intervalId = setInterval(() => {
+        image.src = images[imageIndex];
+        imageIndex = (imageIndex + 1) % images.length; //uses remainder operator to circle through array
+        counter++;
+
+        if (counter >= 10) {
+            clearInterval(intervalId);
+            isSpinning = false;
+            // sets final choice
+            const finalIndex = Math.floor(Math.random() * images.length);
+            image.src = images[finalIndex];
+        }
+    }, 100); //Change image every 100ms
+}  
+
+image.addEventListener('click', () => {spinAnimation()});
 
 function roll(computerChoice) {
-
-    const userDiv = document.querySelector('.userLabel');
-    const outputDiv = document.querySelector('.outputLabel');
-    let output = ''; 
-
-    if(userDiv.textContent === "User:") {
-        outputDiv.textContent = '!Enter Value!';
-        return; //kills function if user has not entered value
-    } else if (computerChoice === 'Rock') {
-
-        if(userDiv.textContent === 'User: Rock') {
-             output = 'Tie';
-        } else if (userDiv.textContent === 'User: Paper') {
-            output = 'User Wins';
-        } else if (userDiv.textContent === 'User: Scissors') {
-            output = 'Computer Wins';
-        }
-    } else if(computerChoice === 'Paper') {
-
-        if(userDiv.textContent === 'User: Rock') {
-            output = 'Computer Wins';
-        } else if (userDiv.textContent === 'User: Paper') {
-            output = 'Tie';
-        } else if (userDiv.textContent === 'User: Scissors') {
-            output = 'User Wins';
-        }
-    } else if (computerChoice === 'Scissors') {
-
-        if(userDiv.textContent === 'User: Rock') {
-            output = 'User Wins';
-        } else if (userDiv.textContent === 'User: Paper') {
-            output = 'Computer Wins';
-        } else if (userDiv.textContent === 'User: Scissors') {
-            output = 'Tie';
-        }
-    }
-
-    const computerDiv = document.querySelector('.computerLabel');
-    computerDiv.textContent = 'Computer: ' + computerChoice; // updates computer result text
-    userDiv.textContent = 'User:';
-    outputDiv.textContent = output; // updates output text
+    
+    
 }
 
 
-function updateUser(choice) {
-    const userDiv = document.querySelector('.userLabel');
-    userDiv.textContent = 'User: ' + choice;
-}
+
 
 //grabs buttons
 const rockButton = document.querySelector('.rockButton');

@@ -7,6 +7,8 @@
 body {
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .gameContainer {
@@ -27,3 +29,23 @@ button {
 .computerLabel, .userLabel {
     align-self: flex-start;
 }
+
+
+.diceImg {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.userChoicesContainer {
+    border-style: solid;
+    display: flex;
+}
+
+.rockImg, .paperImg, .scissorsImg {
+    width: 70px;
+    height: 60px;
+    cursor: pointer;
+}
+
