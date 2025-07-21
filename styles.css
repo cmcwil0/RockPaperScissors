@@ -26,6 +26,20 @@ button {
     padding: 5px 10px;
 }
 
+.choiceWrapper {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.choiceWrapper.selected {
+    background-color: black;
+    
+}
+
+.choiceWrapper.selected img {
+    filter: invert(1);
+}
+
 .computerLabel, .userLabel {
     align-self: flex-start;
 }
@@ -46,6 +60,11 @@ button {
 .rockImg, .paperImg, .scissorsImg {
     width: 70px;
     height: 60px;
-    cursor: pointer;
+    object-fit: contain;
+    transition: filter 0.2s ease;
+}
+
+.outputLabel {
+
 }
 

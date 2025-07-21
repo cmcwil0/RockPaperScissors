@@ -1,22 +1,7 @@
 
-function getComputerChoice() {
-    let choice = Math.floor(Math.random() * 3)
-    if(choice === 0) {
-        return 'Rock';
-    } else if (choice === 1) {
-        return 'Scissors';
-    } else if (choice === 2) {
-        return 'Paper';
-    }
-}
-
-function checkUserChoice() {
-
-}
-
 const image = document.querySelector('.diceImg');
 
-function spinAnimation() {
+function spinAnimation(computerChoice) {
     let isSpinning = false;
     let intervalId = null;
     const images = ['images/rock.svg', 'images/paper.svg', 'images/scissors.svg'];
@@ -35,37 +20,66 @@ function spinAnimation() {
         if (counter >= 10) {
             clearInterval(intervalId);
             isSpinning = false;
-            // sets final choice
-            const finalIndex = Math.floor(Math.random() * images.length);
-            image.src = images[finalIndex];
+            
+            image.src = images[computerChoice]; // sets final choice to computerChoice
         }
     }, 100); //Change image every 100ms
-}  
+}
 
-image.addEventListener('click', () => {spinAnimation()});
+const choices = document.querySelectorAll('.choiceWrapper');
+let userChoice = null;
 
-function roll(computerChoice) {
+choices.forEach((choice, index) => { //handles user selection
+    choice.addEventListener('click', () => {
+        choices.forEach((c) => c.classList.remove('selected')); //for each element in choices deletes selected class
+        choice.classList.add('selected'); // adds it back to whatever was selected
+        userChoice = index;
+    })
+})
+
+let outputReference = document.querySelector('.outputLabel');
+
+function gameResult(computerChoice) {
+    if(userChoice === 0) {
+        if(computerChoice === 0) {
+            outputReference.textContent = 'Tie';
+        } else if(computerChoice === 1) {
+            outputReference.textContent = 'Computer Wins';
+        } else if(computerChoice === 2) {
+            outputReference.textContent = 'User Wins';
+        }
+    } else if(userChoice === 1) {
+        if(computerChoice === 0) {
+            outputReference.textContent = 'User Wins';
+        } else if(computerChoice === 1) {
+            outputReference.textContent = 'Tie';
+        } else if(computerChoice === 2) {
+            outputReference.textContent = 'Computer Wins';
+        }
+    } else if(userChoice === 2) {
+        if(computerChoice === 0) {
+            outputReference.textContent = 'Computer Wins';
+        } else if(computerChoice === 1) {
+            outputReference.textContent = 'User Wins';
+        } else if(computerChoice === 2) {
+            outputReference.textContent = 'Tie';
+        }
+    }
+}
+
+
+function roll() {
+    let computerChoice = Math.floor(Math.random() * 3); //determines computer choice
+    if (userChoice === null) return outputReference.textContent = '*No Option Selected*';
+    outputReference.style.visibility = 'hidden';
+    spinAnimation(computerChoice);
+    
+    setTimeout(() => {gameResult(computerChoice); outputReference.style.visibility = 'visible';}, 1010);
     
     
 }
 
 
 
-
-//grabs buttons
-const rockButton = document.querySelector('.rockButton');
-const scissorsButton = document.querySelector('.scissorsButton');
-const paperButton = document.querySelector('.paperButton')
-
-
-//updates user label on click
-rockButton.addEventListener('click', () => updateUser('Rock'));
-paperButton.addEventListener('click', () => updateUser('Paper'));
-scissorsButton.addEventListener('click', () => updateUser('Scissors'));
-
-
-const rollButton = document.querySelector('.rollButton'); 
-rollButton.addEventListener('click', () => roll(getComputerChoice())); //updates computer label on click (roll)
-
-
+image.addEventListener('click', () => {roll()});
 
